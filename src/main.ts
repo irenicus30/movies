@@ -2,8 +2,8 @@ import { app } from './app';
 import * as http from 'http';
 import * as mongoose from "mongoose";
 
-const PORT = 8080;
-const MONGO_URI = 'mongodb://10.0.0.129:27017/todo';
+const PORT = process.env.PORT || 8080;
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb://10.0.0.129:27017/todo';
 
 const server = http.createServer(app);
 
