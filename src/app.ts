@@ -1,12 +1,13 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyparser from 'body-parser';
-import { todoRoutes } from './todo.controller';
+import { movieRoutes } from './movie.controller';
 
 const app = express();
 app.use(cors());
+app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
-app.use(todoRoutes);
+app.use(movieRoutes);
 
 
 export { app }
