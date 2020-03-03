@@ -19,10 +19,10 @@ movieRoutes.get('/movies', async (req: express.Request, resp: express.Response, 
 });
  
 movieRoutes.post('/movies', async (req: express.Request, resp: express.Response, next: express.NextFunction) => {
-    const title  = req.body['Title'];
+    const title  = req.body['Title'] || req.body['title'] || req.body['t'];
     const id  = req.body['imdbID'] || req.body['i'] || req.body['id'] || req.body['ID'] || req.body['Id'];
 
-    console.log(req.body);
+    //console.log(req.body);
     let exists = false;
     if(title!==undefined && exists===false) {
         try {
@@ -51,7 +51,7 @@ movieRoutes.post('/movies', async (req: express.Request, resp: express.Response,
 
     let url: string = API_KEY;
     if(title) {
-        url = url + '&Title=' + title;
+        url = url + '&t=' + title;
     }
     if(id) {
         url = url + '&i=' + id;
