@@ -11,6 +11,7 @@ movieRoutes.get('/movies', async (req: express.Request, resp: express.Response, 
     try {
         let movies: any = await MovieModel.find({});
         resp.json(movies);
+        next();
     } catch(err) {
         resp.status(500);
         resp.end();
@@ -40,10 +41,6 @@ movieRoutes.post('/movies', async (req: express.Request, resp: express.Response,
         }
     }
     //console.log(exists, title, id);
-    if(exists===true) {
-        resp.end();
-        return;
-    }
     if(title===undefined && id===undefined) {
         resp.end();
         return;
@@ -59,12 +56,12 @@ movieRoutes.post('/movies', async (req: express.Request, resp: express.Response,
 
     const data = await api(url);
     //console.log(url);
-    await MovieModel.create(data);
-
-
+    if(!exists) {
+        await MovieModel.create(data);
+    }
 
     resp.json(data);
-    resp.end();
+    next();
 });
  
  

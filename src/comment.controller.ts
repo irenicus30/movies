@@ -10,6 +10,7 @@ commentRoutes.get('/comments', async (req: express.Request, resp: express.Respon
     try {
         let comments: any = await CommentModel.find({});
         resp.json(comments);
+        next();
     } catch(err) {
         resp.status(500);
         resp.end();
@@ -24,7 +25,7 @@ commentRoutes.post('/comments', async (req: express.Request, resp: express.Respo
     await CommentModel.create({imdbID: id, text: text});
 
     resp.json(text);
-    resp.end();
+    next();
 });
  
  
